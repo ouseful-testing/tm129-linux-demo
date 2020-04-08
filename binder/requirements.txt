@@ -1,2 +1,6 @@
 jupytext
-jupyterterminals
+
+# Use Graffit for now
+jupytergraffiti
+#At some point it looks like we'll be able to just install the terminal component
+# jupyterterminals
