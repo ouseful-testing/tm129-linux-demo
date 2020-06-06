@@ -1,0 +1,6 @@
+Type: Jupyter Notebook Extension
+Compatibility: Jupyter 4.x, 5.x
+Name: output_dialog
+Main: index.js
+Description: Add buttons for output dialog
+Icon: output_dialog.png
