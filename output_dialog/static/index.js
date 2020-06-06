@@ -10,6 +10,21 @@
 
 define(["require", "./jquery.dialogextend"], function (require, dialogextend) {
 
+	function popout_code() {
+		var cell = Jupyter.notebook.get_selected_cell();
+		if (cell.cell_type == "code") {
+			var popped = document.createElement("div");
+			var popped_id = "p_" + Date.now();
+			popped.setAttribute("id", popped_id);
+			var _tmp_el = document.createElement("div");
+			var _returner = cell.element[0].nextSibling;
+			var _cell = cell.element[0];
+			popped.appendChild(_cell);
+			document.getElementsByTagName("body")[0].appendChild(popped);
+
+			$("#" + popped_id).dialog({ beforeClose: function (event, ui) { _returner.parentNode.insertBefore(_cell, _returner); } });
+		}
+	}
 	function popout() {
 		var cell = Jupyter.notebook.get_selected_cell();
 		if (cell.cell_type == "code") {
@@ -42,9 +57,20 @@ define(["require", "./jquery.dialogextend"], function (require, dialogextend) {
 			'handler': popout
 		}, 'popout', 'cell_dialog');
 
+
+		Jupyter.actions.register({
+			'help': 'Cell as dialog.',
+			'icon': 'fa-terminal',
+			'handler': popout_code
+		}, 'popout_code', 'cell_dialog');
+
+
 		IPython.toolbar.add_buttons_group([
 			{
 				'action': 'cell_dialog:popout'
+			},
+			{
+				'action': 'cell_dialog:popout_code'
 			}
 		], 'cell_dialog-buttons');
 	};
