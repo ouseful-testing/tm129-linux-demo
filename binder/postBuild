@@ -9,3 +9,7 @@ rm -rf /var/lib/apt/lists/*
 echo "MANPATH_MAP ${CONDA_DIR}/bin ${CONDA_DIR}/man" >> /etc/manpath.config 
 echo "MANPATH_MAP ${CONDA_DIR}/bin ${CONDA_DIR}/share/man" >> /etc/manpath.config 
 mandb
+
+jupyter nbextension uninstall output_dialog/
+jupyter nbextension install output_dialog/ --user
+jupyter nbextension enable output_dialog/static/index

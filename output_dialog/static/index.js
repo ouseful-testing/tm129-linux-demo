@@ -10,28 +10,43 @@
 
 define(["require", "./jquery.dialogextend"], function (require, dialogextend) {
 
-	function popout(){
+	function popout() {
 		var cell = Jupyter.notebook.get_selected_cell();
-		var popped = document.createElement("div");
-		popped.setAttribute("id", "popped");
-		popped.appendChild(cell.element[0].getElementsByClassName("output_wrapper")[0]);
-		document.getElementsByTagName("body")[0].appendChild(popped);
-		$("#popped").dialog();
+		if (cell.cell_type == "code") {
+			var popped = document.createElement("div");
+			var popped_id = "p_" + Date.now();
+			popped.setAttribute("id", popped_id);
+			var _home = cell.element[0].getElementsByClassName("output_area")[0];
+			var _cell = cell.element[0].getElementsByClassName("output_subarea")[0];
+			popped.appendChild(_cell);
+			document.getElementsByTagName("body")[0].appendChild(popped);
+
+			$("#" + popped_id).dialog({ beforeClose: function (event, ui) { _home.appendChild(_cell) } });
+		} else if (cell.cell_type == "markdown") {
+			var popped = document.createElement("div");
+			var popped_id = "p_" + Date.now();
+			popped.setAttribute("id", popped_id);
+			var _home = cell.element[0].getElementsByClassName("inner_cell")[0];
+			var _cell = cell.element[0].getElementsByClassName("text_cell_render")[0];
+			popped.appendChild(_cell);
+			document.getElementsByTagName("body")[0].appendChild(popped);
+			$("#" + popped_id).dialog({ beforeClose: function (event, ui) { _home.appendChild(_cell) } });
+		}
 
 	}
 
 	var add_toolbar_buttons = function () {
 		Jupyter.actions.register({
-			'help': 'Output as dialog.',
-			'icon': 'fa-terminal',
+			'help': 'Cell as dialog.',
+			'icon': 'fa-rocket',
 			'handler': popout
-		}, 'popout', 'output_dialog');
+		}, 'popout', 'cell_dialog');
 
 		IPython.toolbar.add_buttons_group([
 			{
-				'action': 'output_dialog:popout'
+				'action': 'cell_dialog:popout'
 			}
-		], 'output_dialog-buttons');
+		], 'cell_dialog-buttons');
 	};
 
 	var load_ipython_extension = function () {
