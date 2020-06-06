@@ -18,7 +18,10 @@ jupyter:
 <!-- #endregion -->
 
 <!-- #region graffitiCellId="id_8zgyjzm" -->
-<div class='alert-danger'>If you see an <em>Activate Graffiti</em> button in the notebook toolbar above, click it. If it already displays <em>Show Graffiti Editor</em>, everyhting should already be good to go.</div>
+<div class='alert-danger'>If you see an <em>Activate Graffiti</em> button in the notebook toolbar above, click it.<br/><br/>
+On activating Graffit, your browser may become unresponsive for a few seconds as the Graffiti machinery is installed into the page.
+<br/><br/>
+If the toolbar button already displays <em>Show Graffiti Editor</em>, everything should already be good to go.</div>
 <!-- #endregion -->
 
 <!-- #region graffitiCellId="id_tegr4vp" -->
