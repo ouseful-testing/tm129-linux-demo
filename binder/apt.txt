@@ -1,3 +1,4 @@
 man
 manpages
 man-db
+nano
